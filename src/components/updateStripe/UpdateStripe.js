@@ -6,11 +6,11 @@ import StepOne from './StepOne';
 import StepTwo from './StepTwo';
 import StepThree from './StepThree';
 import { useGetCharactersQuery } from '../../features/characters/characterApi';
-import { useAddStripeMutation } from '../../features/stripes/stripesApi';
+import { useUpdateStripeMutation } from '../../features/stripes/stripesApi';
 import LastPreview from './LastPreview';
 
-const UpdateStripe = ({ modalHandler, data }) => {
-  const [addStripe, { isSuccess, isError, error }] = useAddStripeMutation();
+const UpdateStripe = ({id, modalHandler, data }) => {
+  const [updateStripe, { isSuccess, isError, error }] = useUpdateStripeMutation();
   const { data: characters, isLoading } = useGetCharactersQuery();
   const [blocks, setBlocks] = useState([]);
   const [stepPosition, setStepPosition] = useState(1);
@@ -86,14 +86,14 @@ const UpdateStripe = ({ modalHandler, data }) => {
         characters: totalCharacter,
       };
 
-      addStripe({
+      updateStripe(id,{
         title: values.title,
         blockCount: values.blockType,
-        blocks: values.blockType === 1 ? [blc] : [...blocks, blc],
+        blocks: blocks,
       });
     },
   });
-
+console.log(id)
   const { handleChange, handleSubmit, errors, values, setFieldValue } = formik;
 
   const handleSetBlock = () => {
@@ -213,7 +213,7 @@ const UpdateStripe = ({ modalHandler, data }) => {
     }
   }, [isSuccess, isError, stepPosition]);
 
-  console.log({blocks})
+
 
   const getStep = () => {
     switch (stepPosition) {
