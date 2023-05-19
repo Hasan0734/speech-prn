@@ -1,23 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-const LastPreview = ({ values }) => {
+const StripePreview = ({ values }) => {
   const {
-    blockStyle,
-    character1character,
+    character1,
+    character2,
     character1Text,
-    character2character,
     character2Text,
+    blockStyle
    
   } = values;
 
-  const character2 = useRef();
+  const character2Ref = useRef();
 
   return (
     <>
       <div className=''>
         <div className='relative'>
           {/* single block */}
-          {!character2character && (
+          {!character2 && (
             <div
               className={`relative ${
                 blockStyle === 'noblock' ? 'border-0' : 'border-4'
@@ -34,19 +34,19 @@ const LastPreview = ({ values }) => {
                     ? 'max-w-[120px]'
                     : 'max-w-[120px]'
                 } absolute -left-6 -bottom-4`}
-                src={character1character.link}
+                src={character1.link}
                 alt=''
               />
             </div>
           )}
 
-          {character1character && character2character && (
+          {character1 && character2 && (
             <div
               className={`relative ${
                 blockStyle === 'noblock' ? 'border-0' : 'border-4'
               } border-black ${
                 blockStyle === 'short' ? 'h-[220px]' : 'h-[300px]'
-              } w-[320px] p-4 flex items-center`}
+              } w-fulll p-4 flex items-center`}
             >
               <div className='px-3 flex justify-between items-center w-full'>
                 <div className='relative object-cover'>
@@ -55,7 +55,7 @@ const LastPreview = ({ values }) => {
                       className={`absolute -left-[80px] -skew-x-[-6deg] -skew-y-[1deg]`}
                       style={{
                         bottom: character2Text
-                          ? `${character2.current?.scrollHeight + 140}px`
+                          ? `${character2Ref.current?.scrollHeight + 140}px`
                           : '150px',
                       }}
                     >
@@ -74,7 +74,7 @@ const LastPreview = ({ values }) => {
                         ? 'w-[105px]'
                         : 'w-[105px]'
                     } h-[140px]`}
-                    src={character1character.link}
+                    src={character1?.link}
                     alt=''
                   />
                 </div>
@@ -82,7 +82,7 @@ const LastPreview = ({ values }) => {
                 <div className='relative object-cover'>
                   {character2Text && (
                     <div
-                      ref={character2}
+                      ref={character2Ref}
                       className={`absolute ${'bottom-[150px] -right-[70px]'} -skew-x-[-6deg] -skew-y-[1deg]`}
                     >
                       <div className='text-left m-bubble4 p-2 w-[250px] border-4 border-black rounded-md bg-white'>
@@ -100,7 +100,7 @@ const LastPreview = ({ values }) => {
                         ? 'w-[105px]'
                         : 'w-[105px]'
                     } h-[140px]`}
-                    src={character2character.link}
+                    src={character2?.link}
                     alt=''
                   />
                 </div>
@@ -113,4 +113,4 @@ const LastPreview = ({ values }) => {
   );
 };
 
-export default LastPreview;
+export default StripePreview;

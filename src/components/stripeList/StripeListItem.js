@@ -88,7 +88,7 @@ const StripeListItem = ({ stripe }) => {
       )}
 
       <div class='card relative bg-slate-100 overflow-hidden'>
-        <div className='grid grid-cols-3'>
+        <div className='grid grid-cols-3 pt-4'>
           {blocks?.map((block) => (
             <>
               {blocks.length === 1 ? (

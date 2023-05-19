@@ -3,8 +3,10 @@ import SelectOption from '../ui/SelectOption';
 import CharacterOptions from './CharacterOptions';
 import CharacterBubble from './CharacterBubble';
 import TextArea from '../inputs/TextArea';
+import InputText from '../inputs/InputText';
 
-const StepTwo = ({
+
+const StepOne = ({
   values,
   setFieldValue,
   handleChange,
@@ -18,9 +20,30 @@ const StepTwo = ({
         className='space-y-4 max-h-[350px] 2xl:max-h-full overflow-y-scroll
            2xl:overflow-auto sm:px-5 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300'
       >
-     
+      <InputText
+          value={values.title}
+          error={errors.title}
+          label='Title'
+          name='title'
+          placeholder='Enter Title'
+          onChange={handleChange}
+        />
 
         <div className='flex items-start gap-x-4'>
+        <SelectOption
+            handleChange={setFieldValue}
+            options={[
+              { label: '1 Block', value: 1 },
+              { label: '2 Block', value: 2 },
+              { label: '3 Block', value: 3 },
+            ]}
+            title='Block Type'
+            value={values.blockType}
+            placeholder={'Select Type'}
+            // error={formik.errors.blockType}
+            name={'blockType'}
+            label={true}
+          />
           <SelectOption
             handleChange={setFieldValue}
             options={[
@@ -29,22 +52,15 @@ const StepTwo = ({
               { label: 'NO Block', value: 'noblock' },
             ]}
             title='Block Style'
-            value={values.block2Style}
+            value={values.block1Style}
             placeholder={'Select style'}
             // error={formik.errors.blockType}
-            name={'block2Style'}
+            name={'block1Style'}
             label={true}
           />
         </div>
 
-        {/* <BlockInfo
-          fieldName={fieldname}
-          values={values}
-          handleChange={handleChange}
-          setFieldValue={setFieldValue}
-          errors={errors}
-          characters={characters}
-        /> */}
+     
 
         <div className='grid grid-cols-2 gap-6'>
           {/* character 1 */}
@@ -54,11 +70,11 @@ const StepTwo = ({
               values={values}
               handleChange={setFieldValue}
               options={characters}
-              value={values.block2Character1}
+              value={values.block1Character1}
               placeholder={'Select Character'}
-              // error={formik.errors.block2Character1}
-              name={'block2Character1'}
+              // error={formik.errors.block1Character1}
               position={position}
+              name={'block1Character1'}
             />
             <SelectOption
               handleChange={setFieldValue}
@@ -67,10 +83,11 @@ const StepTwo = ({
                 { label: 'Emotion 2', value: 'Emotion 2' },
                 { label: 'Emotion 3', value: 'Emotion 3' },
               ]}
-              value={values.block2Emotion1}
+              value={values.block1Emotion1}
               placeholder={'Select Emotion'}
-              // error={formik.errors.block2Emotion1}
-              name={'block2Emotion1'}
+              // error={formik.errors.block1Emotion1}
+              
+              name={'block1Emotion1'}
             />
           </div>
           {/* character 2 */}
@@ -81,11 +98,10 @@ const StepTwo = ({
               values={values}
               handleChange={setFieldValue}
               options={characters}
-              formValue={values}
-              value={values.block2Character2}
+              value={values.block1Character2}
               placeholder={'Select Character'}
               // error={formik.errors.blockType}
-              name={'block2Character2'}
+              name={'block1Character2'}
               position={position}
             />
             <SelectOption
@@ -99,7 +115,8 @@ const StepTwo = ({
               placeholder={'Select Emotion'}
               // error={formik.errors.blockType}
               disable={values.character2character ? false : true}
-              name={'block2Emotion2'}
+              name={'block1Emotion2'}
+              
             />
           </div>
         </div>
@@ -107,25 +124,26 @@ const StepTwo = ({
         <div>
           <CharacterBubble
             toggleField={{
-              speck: 'block2Speck1',
-              thought: 'block2Thought1',
-              top: 'block2Top1',
-              bottom: 'block2Bottom1',
+              speck: 'block1Speck1',
+              thought: 'block1Thought1',
+              top: 'block1Top1',
+              bottom: 'block1Bottom1',
             }}
             handleChange={setFieldValue}
-            characterBubble={'block2Bubble1'}
+            characterBubble={'block1Bubble1'}
             title={'Character 1 Bubble'}
+            
             values={values}
           />
           <CharacterBubble
             toggleField={{
-              speck: 'block2Speck2',
-              thought: 'block2Thought2',
-              top: 'block2Top2',
-              bottom: 'block2Bottom',
+              speck: 'block1Speck2',
+              thought: 'block1Thought2',
+              top: 'block1Top2',
+              bottom: 'block1Bottom',
             }}
             handleChange={setFieldValue}
-            characterBubble={'block2Bubble2'}
+            characterBubble={'block1Bubble2'}
             title={'Character 2 Bubble'}
             values={values}
           />
@@ -134,19 +152,19 @@ const StepTwo = ({
         <TextArea
           onChange={handleChange}
           label='Character 1'
-          name='block2Text1'
+          name='block1Text1'
           error=''
           rows={3}
           className='resize-none'
-          value={values.block2Text1}
+          value={values.block1Text1}
         />
 
-        {values.block2Character2 && (
+        {values.block1Character2 && (
           <TextArea
             onChange={handleChange}
             label='Character 2'
-            name='block2Text2'
-            value={values.block2Text2}
+            name='block1Text2'
+            value={values.block1Text2}
             error=''
             rows={3}
             className='resize-none'
@@ -157,4 +175,4 @@ const StepTwo = ({
   );
 };
 
-export default StepTwo;
+export default StepOne;

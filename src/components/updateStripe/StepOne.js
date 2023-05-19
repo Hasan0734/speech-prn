@@ -1,7 +1,10 @@
 import React from 'react';
 import SelectOption from '../ui/SelectOption';
+import CharacterOptions from './CharacterOptions';
+import CharacterBubble from './CharacterBubble';
+import TextArea from '../inputs/TextArea';
 import InputText from './../inputs/InputText';
-import BlockInfo from './BlockInfo';
+
 
 const StepOne = ({
   values,
@@ -9,16 +12,15 @@ const StepOne = ({
   handleChange,
   errors,
   characters,
+  position
 }) => {
-
-
   return (
     <>
       <div
         className='space-y-4 max-h-[350px] 2xl:max-h-full overflow-y-scroll
            2xl:overflow-auto sm:px-5 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300'
       >
-        <InputText
+      <InputText
           value={values.title}
           error={errors.title}
           label='Title'
@@ -28,7 +30,7 @@ const StepOne = ({
         />
 
         <div className='flex items-start gap-x-4'>
-          <SelectOption
+        <SelectOption
             handleChange={setFieldValue}
             options={[
               { label: '1 Block', value: 1 },
@@ -50,21 +52,125 @@ const StepOne = ({
               { label: 'NO Block', value: 'noblock' },
             ]}
             title='Block Style'
-            value={values.blockStyle}
+            value={values.block1Style}
             placeholder={'Select style'}
             // error={formik.errors.blockType}
-            name={'blockStyle'}
+            name={'block1Style'}
             label={true}
           />
         </div>
 
-        <BlockInfo
-          values={values}
-          handleChange={handleChange}
-          setFieldValue={setFieldValue}
-          errors={errors}
-          characters={characters}
+     
+
+        <div className='grid grid-cols-2 gap-6'>
+          {/* character 1 */}
+          <div>
+            <h4>Character 1</h4>
+            <CharacterOptions
+              values={values}
+              handleChange={setFieldValue}
+              options={characters}
+       
+              value={values.block1Character1}
+              placeholder={'Select Character'}
+              // error={formik.errors.block1Character1}
+              position={position}
+              name={'block1Character1'}
+            />
+            <SelectOption
+              handleChange={setFieldValue}
+              options={[
+                { label: 'Emotion 1', value: 'Emotion 1' },
+                { label: 'Emotion 2', value: 'Emotion 2' },
+                { label: 'Emotion 3', value: 'Emotion 3' },
+              ]}
+              value={values.block1Emotion1}
+              placeholder={'Select Emotion'}
+              // error={formik.errors.block1Emotion1}
+              
+              name={'block1Emotion1'}
+            />
+          </div>
+          {/* character 2 */}
+          <div>
+            <h4>Character 2</h4>
+
+            <CharacterOptions
+              values={values}
+              handleChange={setFieldValue}
+              options={characters}
+              value={values.block1Character2}
+              placeholder={'Select Character'}
+              // error={formik.errors.blockType}
+              name={'block1Character2'}
+              position={position}
+            />
+            <SelectOption
+              handleChange={setFieldValue}
+              options={[
+                { label: 'Emotion 1', value: 'Emotion 1' },
+                { label: 'Emotion 2', value: 'Emotion 2' },
+                { label: 'Emotion 3', value: 'Emotion 3' },
+              ]}
+              value={values.blockType}
+              placeholder={'Select Emotion'}
+              // error={formik.errors.blockType}
+              disable={values.character2character ? false : true}
+              name={'block1Emotion2'}
+              
+            />
+          </div>
+        </div>
+
+        <div>
+          <CharacterBubble
+            toggleField={{
+              speck: 'block1Speck1',
+              thought: 'block1Thought1',
+              top: 'block1Top1',
+              bottom: 'block1Bottom1',
+            }}
+            handleChange={setFieldValue}
+            characterBubble={'block1Bubble1'}
+            title={'Character 1 Bubble'}
+            
+            values={values}
+          />
+          <CharacterBubble
+            toggleField={{
+              speck: 'block1Speck2',
+              thought: 'block1Thought2',
+              top: 'block1Top2',
+              bottom: 'block1Bottom',
+            }}
+            handleChange={setFieldValue}
+            characterBubble={'block1Bubble2'}
+            title={'Character 2 Bubble'}
+            values={values}
+          />
+        </div>
+
+        <TextArea
+          onChange={handleChange}
+          label='Character 1'
+          name='block1Text1'
+          error=''
+          rows={3}
+          className='resize-none'
+          value={values.block1Text1}
         />
+
+        {values.block1Character2 && (
+          <TextArea
+            onChange={handleChange}
+            label='Character 2'
+            name='block1Text2'
+            value={values.block1Text2}
+            error=''
+            rows={3}
+            className='resize-none'
+          />
+        )}
       </div>
     </>
   );

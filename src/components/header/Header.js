@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import KissMyEmogiLogo from './../../assets/images/logos/logo.png'
 import HermonLogo from './../../assets/images/logos/ftmoah.webp'
 import Modal from './../ui/Modal'
-import Addblog from './../addBlog/Addblog'
+import AddStripe from '../addStripe/AddStripe'
 
 const Header = () => {
   const { user } = useSelector((state) => state.auth)
@@ -19,7 +19,7 @@ const Header = () => {
       {/* Add New Blog Modal */}
       {addStripeModal && (
         <Modal open={addStripeModal} modalHandler={modalCloser} maxWidth={'max-w-5xl'}>
-          <Addblog modalHandler={modalCloser} />
+          <AddStripe modalHandler={modalCloser} />
         </Modal>
       )}
 

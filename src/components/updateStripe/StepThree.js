@@ -1,14 +1,25 @@
 import React from 'react';
 import SelectOption from '../ui/SelectOption';
-import BlockInfo from './BlockInfo';
+import CharacterOptions from './CharacterOptions';
+import CharacterBubble from './CharacterBubble';
+import TextArea from '../inputs/TextArea';
 
-const StepThree = ({ values, setFieldValue, handleChange, errors,characters }) => {
+const StepThree = ({
+  values,
+  setFieldValue,
+  handleChange,
+  errors,
+  characters,
+  position
+}) => {
   return (
     <>
       <div
         className='space-y-4 max-h-[350px] 2xl:max-h-full overflow-y-scroll
            2xl:overflow-auto sm:px-5 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300'
       >
+     
+
         <div className='flex items-start gap-x-4'>
           <SelectOption
             handleChange={setFieldValue}
@@ -18,21 +29,122 @@ const StepThree = ({ values, setFieldValue, handleChange, errors,characters }) =
               { label: 'NO Block', value: 'noblock' },
             ]}
             title='Block Style'
-            value={values.blockStyle}
+            value={values.block3Style}
             placeholder={'Select style'}
             // error={formik.errors.blockType}
-            name={'blockStyle'}
+            name={'block3Style'}
             label={true}
           />
         </div>
 
-        <BlockInfo
-          values={values}
-          handleChange={handleChange}
-          setFieldValue={setFieldValue}
-          errors={errors}
-          characters={characters}
+       
+
+        <div className='grid grid-cols-2 gap-6'>
+          {/* character 1 */}
+          <div>
+            <h4>Character 1</h4>
+            <CharacterOptions
+              values={values}
+              handleChange={setFieldValue}
+              options={characters}
+              value={values.block3Character1}
+              placeholder={'Select Character'}
+              // error={formik.errors.block3Character1}
+              name={'block3Character1'}
+              position={position}
+            />
+            <SelectOption
+              handleChange={setFieldValue}
+              options={[
+                { label: 'Emotion 1', value: 'Emotion 1' },
+                { label: 'Emotion 2', value: 'Emotion 2' },
+                { label: 'Emotion 3', value: 'Emotion 3' },
+              ]}
+              value={values.block3Emotion1}
+              placeholder={'Select Emotion'}
+              // error={formik.errors.block3Emotion1}
+              name={'block3Emotion1'}
+            />
+          </div>
+          {/* character 2 */}
+          <div>
+            <h4>Character 2</h4>
+
+            <CharacterOptions
+              values={values}
+              handleChange={setFieldValue}
+              options={characters}
+              formValue={values}
+              value={values.block3Character2}
+              placeholder={'Select Character'}
+              // error={formik.errors.blockType}
+              name={'block3Character2'}
+              position={position}
+            />
+            <SelectOption
+              handleChange={setFieldValue}
+              options={[
+                { label: 'Emotion 1', value: 'Emotion 1' },
+                { label: 'Emotion 2', value: 'Emotion 2' },
+                { label: 'Emotion 3', value: 'Emotion 3' },
+              ]}
+              value={values.blockType}
+              placeholder={'Select Emotion'}
+              // error={formik.errors.blockType}
+              disable={values.block3Character2 ? false : true}
+              name={'block3Emotion2'}
+            />
+          </div>
+        </div>
+
+        <div>
+          <CharacterBubble
+            toggleField={{
+              speck: 'block3Speck1',
+              thought: 'block3Thought1',
+              top: 'block3Top1',
+              bottom: 'block3Bottom1',
+            }}
+            handleChange={setFieldValue}
+            characterBubble={'block3Bubble1'}
+            title={'Character 1 Bubble'}
+            values={values}
+          />
+          <CharacterBubble
+            toggleField={{
+              speck: 'block3Speck2',
+              thought: 'block3Thought2',
+              top: 'block3Top2',
+              bottom: 'block3Bottom',
+            }}
+            handleChange={setFieldValue}
+            characterBubble={'block3Bubble2'}
+            title={'Character 2 Bubble'}
+            values={values}
+          />
+        </div>
+
+        <TextArea
+          onChange={handleChange}
+          label='Character 1'
+          name='block3Text1'
+          error=''
+          rows={3}
+          className='resize-none'
+          value={values.block3Text1}
         />
+
+        {values.block3Character2 && (
+          <TextArea
+            onChange={handleChange}
+            label='Character 2'
+            name='block3Text2'
+            value={values.block3Text2}
+            error=''
+            rows={3}
+            className='resize-none'
+          />
+        )}
       </div>
     </>
   );

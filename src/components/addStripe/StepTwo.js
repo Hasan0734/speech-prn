@@ -81,7 +81,6 @@ const StepTwo = ({
               values={values}
               handleChange={setFieldValue}
               options={characters}
-              formValue={values}
               value={values.block2Character2}
               placeholder={'Select Character'}
               // error={formik.errors.blockType}

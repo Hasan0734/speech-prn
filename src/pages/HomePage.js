@@ -5,11 +5,9 @@ import { useLogoutQuery } from '../features/auth/authApi'
 import UpdateProfile from './../components/updateProfile/UpdateProfile'
 import UpdatePassword from './../components/updatePassword/UpdatePassword'
 import LinkedDeivces from './../components/linkedDevices/LinkedDeivces'
-import { useDispatch } from 'react-redux'
-import Addblog from './../components/addBlog/Addblog'
-import BlogList from '../components/blogList/BlogList'
 import BlogRead from '../components/blogRead/BlogRead'
 import StripeList from '../components/stripeList/StripeList'
+import AddStripe from '../components/addStripe/AddStripe'
 
 const HomePage = () => {
   const search = useLocation().search
@@ -35,7 +33,7 @@ const HomePage = () => {
       case 'linked_devices':
         return <LinkedDeivces />
       case 'add_blog':
-        return <Addblog />
+        return <AddStripe />
       case 'blog_read':
         return <BlogRead />
       default:

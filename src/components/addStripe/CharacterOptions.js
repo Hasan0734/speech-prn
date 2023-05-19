@@ -11,7 +11,10 @@ const CharacterOptions = ({
   name,
   handleChange,
   placeholder,
+  character1,
+  character2,
   formValue = null,
+  position,
   ...attributes
 }) => {
   const onChange = (e) => {
@@ -20,11 +23,29 @@ const CharacterOptions = ({
   };
 
   const isDisable = (_id) => {
-    if (name === 'character1character') {
-      return values.character2character?._id === _id;
-    }
-    if (name === 'character2character') {
-      return values.character1character?._id === _id;
+    switch (position) {
+      case 1:
+        if (name === 'block1Character1') {
+          return values.block1Character2?._id === _id;
+        }
+        if (name === 'block1Character2') {
+          return values.block1Character1?._id === _id;
+        }
+      case 2:
+        console.log('Hello world')
+        if (name === 'block2Character1') {
+          return values.block2Character2?._id === _id;
+        }
+        if (name === 'block2Character2') {
+          return values.block2Character1?._id === _id;
+        }
+      case 3:
+        if (name === 'block3Character1') {
+          return values.block3Character2?._id === _id;
+        }
+        if (name === 'block3Character2') {
+          return values.block3Character1?._id === _id;
+        }
     }
   };
 
@@ -44,10 +65,10 @@ const CharacterOptions = ({
           </option>
           {options?.map((option, i) => (
             <option
-              disabled={isDisable(option._id)}
+              disabled={isDisable(option?._id)}
               key={i++}
-              value={option._id}
-              selected={value._id === option._id}
+              value={option?._id}
+              selected={value?._id === option?._id}
             >
               {option.title}
             </option>
