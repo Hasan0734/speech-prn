@@ -17,6 +17,7 @@ const StepOne = ({
   return (
     <>
       <div
+      disabled
         className='space-y-4 max-h-[350px] 2xl:max-h-full overflow-y-scroll
            2xl:overflow-auto sm:px-5 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300'
       >
@@ -124,23 +125,31 @@ const StepOne = ({
         <div>
           <CharacterBubble
             toggleField={{
-              speck: 'block1Speck1',
-              thought: 'block1Thought1',
-              top: 'block1Top1',
-              bottom: 'block1Bottom1',
+              speak: 'block1BubbleType1',
+              thought: 'block1BubbleType1',
+              top: 'block1BubblePosition1',
+              bottom: 'block1BubblePosition1',
+            }}
+            bubbleValue={{
+              type: values.block1BubbleType1,
+              position: values.block1BubblePosition1,
             }}
             handleChange={setFieldValue}
             characterBubble={'block1Bubble1'}
             title={'Character 1 Bubble'}
-            
             values={values}
           />
+
           <CharacterBubble
             toggleField={{
-              speck: 'block1Speck2',
-              thought: 'block1Thought2',
-              top: 'block1Top2',
-              bottom: 'block1Bottom',
+              speak: 'block1BubbleType2',
+              thought: 'block1BubbleType2',
+              top: 'block1BubblePosition2',
+              bottom: 'block1BubblePosition2',
+            }}
+            bubbleValue={{
+              type: values.block1BubbleType2,
+              position: values.block1BubblePosition2,
             }}
             handleChange={setFieldValue}
             characterBubble={'block1Bubble2'}
@@ -151,7 +160,7 @@ const StepOne = ({
 
         <TextArea
           onChange={handleChange}
-          label='Character 1'
+          label='Character 1 dialogue'
           name='block1Text1'
           error=''
           rows={3}
@@ -162,7 +171,7 @@ const StepOne = ({
         {values.block1Character2 && (
           <TextArea
             onChange={handleChange}
-            label='Character 2'
+            label='Character 2 dialogue'
             name='block1Text2'
             value={values.block1Text2}
             error=''

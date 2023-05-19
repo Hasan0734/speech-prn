@@ -106,10 +106,14 @@ const StepTwo = ({
         <div>
           <CharacterBubble
             toggleField={{
-              speck: 'block2Speck1',
-              thought: 'block2Thought1',
-              top: 'block2Top1',
-              bottom: 'block2Bottom1',
+              speak: 'block2BubbleType1',
+              thought: 'block2BubbleType1',
+              top: 'block2BubblePosition1',
+              bottom: 'block2BubblePosition1',
+            }}
+            bubbleValue={{
+              type: values.block2BubbleType1,
+              position: values.block2BubblePosition1,
             }}
             handleChange={setFieldValue}
             characterBubble={'block2Bubble1'}
@@ -118,10 +122,14 @@ const StepTwo = ({
           />
           <CharacterBubble
             toggleField={{
-              speck: 'block2Speck2',
-              thought: 'block2Thought2',
-              top: 'block2Top2',
-              bottom: 'block2Bottom',
+              speak: 'block2BubbleType2',
+              thought: 'block2BubbleType2',
+              top: 'block2BubblePosition2',
+              bottom: 'block2BubblePosition2',
+            }}
+            bubbleValue={{
+              type: values.block2BubbleType2,
+              position: values.block2BubblePosition2,
             }}
             handleChange={setFieldValue}
             characterBubble={'block2Bubble2'}

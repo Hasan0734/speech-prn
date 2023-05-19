@@ -58,36 +58,28 @@ const UpdateStripe = ({ id, modalHandler, data }) => {
       block3Text2: blocks[2]?.characters[1]?.dialogue
         ? blocks[2]?.characters[1]?.dialogue
         : '',
-      block1Speck1: '',
-      block1Speck2: '',
-      block2Speck1: '',
-      block2Speck2: '',
-      block3Speck1: '',
-      block3Speck2: '',
-      block1Thought1: '',
-      block1Thought2: '',
-      block2Thought1: '',
-      block2Thought2: '',
-      block3Thought1: '',
-      block3Thought2: '',
-      block1Top1: '',
-      block1Top2: '',
-      block2Top1: '',
-      block2Top2: '',
-      block3Top1: '',
-      block3Top2: '',
-      block1Bottom1: '',
-      block1Bottom2: '',
-      block2Bottom1: '',
-      block2Bottom2: '',
-      block3Bottom1: '',
-      block3Bottom2: '',
+      block1BubbleType1: '',
+      block1BubbleType2: '',
+      block2BubbleType1: '',
+      block2BubbleType2: '',
+      block3BubbleType1: '',
+      block3BubbleType2: '',
+      block1BubblePosition1: '',
+      block1BubblePosition2: '',
+      block2BubblePosition1: '',
+      block2BubblePosition2: '',
+      block3BubblePosition1: '',
+      block3BubblePosition2: '',
     },
     // validationSchema: createBlogSchema,
     onSubmit: async (values, { resetForm }) => {
       const createCharacter = (
         character1ID,
         dialogue1,
+        bubbleType1,
+        bubbleType2,
+        bubblePosition1,
+        bubblePosition2,
         dialogue2,
         character2ID
       ) => {
@@ -95,8 +87,8 @@ const UpdateStripe = ({ id, modalHandler, data }) => {
         if (character1ID) {
           totalCharacter.push({
             character: character1ID,
-            bubbleType: 'speak',
-            bubblePosition: 'top',
+            bubbleType: bubbleType1,
+            bubblePosition: bubblePosition1,
             dialogue: dialogue1,
           });
         }
@@ -104,8 +96,8 @@ const UpdateStripe = ({ id, modalHandler, data }) => {
         if (character2ID) {
           totalCharacter.push({
             character: character2ID,
-            bubbleType: 'speak',
-            bubblePosition: 'top',
+            bubbleType: bubbleType2,
+            bubblePosition: bubblePosition2,
             dialogue: dialogue2,
           });
         }
@@ -114,67 +106,96 @@ const UpdateStripe = ({ id, modalHandler, data }) => {
 
       const newBlocks = [];
 
+      
       if (1 <= values.blockType) {
         const blc = {
           blockStyle: values.block1Style,
           characterCount: createCharacter(
             values.block1Character1?._id,
             values.block1Text1,
+            values.block1BubbleType1,
+            values.block1BubbleType2,
+            values.block1BubblePosition1,
+            values.block1BubblePosition2,
             values.block1Text2,
             values.block1Character2?._id
           )?.length,
           characters: createCharacter(
             values.block1Character1?._id,
             values.block1Text1,
+            values.block1BubbleType1,
+            values.block1BubbleType2,
+            values.block1BubblePosition1,
+            values.block1BubblePosition2,
             values.block1Text2,
             values.block1Character2?._id
           ),
         };
+
         newBlocks.push(blc);
       }
+     // block 2 push on newBlocks
       if (2 <= values.blockType) {
         const blc = {
           blockStyle: values.block2Style,
           characterCount: createCharacter(
             values.block2Character1?._id,
             values.block2Text1,
+            values.block2BubbleType1,
+            values.block2BubbleType2,
+            values.block2BubblePosition1,
+            values.block2BubblePosition2,
             values.block2Text2,
             values.block2Character2?._id
           )?.length,
           characters: createCharacter(
             values.block2Character1?._id,
             values.block2Text1,
+            values.block2BubbleType1,
+            values.block2BubbleType2,
+            values.block2BubblePosition1,
+            values.block2BubblePosition2,
             values.block2Text2,
             values.block2Character2?._id
           ),
         };
         newBlocks.push(blc);
       }
+      // block 3 push on newBlocks
       if (3 <= values.blockType) {
         const blc = {
           blockStyle: values.block3Style,
           characterCount: createCharacter(
             values.block3Character1?._id,
             values.block3Text1,
+            values.block3BubbleType1,
+            values.block3BubbleType2,
+            values.block3BubblePosition1,
+            values.block3BubblePosition2,
             values.block3Text2,
             values.block3Character2?._id
           )?.length,
           characters: createCharacter(
             values.block3Character1?._id,
             values.block3Text1,
+            values.block3BubbleType1,
+            values.block3BubbleType2,
+            values.block3BubblePosition1,
+            values.block3BubblePosition2,
             values.block3Text2,
             values.block3Character2?._id
           ),
         };
         newBlocks.push(blc);
       }
-
-
-      updateStripe({id, data:{
-        title: values.title,
-        blockCount: values.blockType,
-        blocks: newBlocks,
-      }});
+      updateStripe({
+        id,
+        data: {
+          title: values.title,
+          blockCount: values.blockType,
+          blocks: newBlocks,
+        },
+      });
     },
   });
 
@@ -186,6 +207,8 @@ const UpdateStripe = ({ id, modalHandler, data }) => {
 
   React.useEffect(() => {
     if (characters) {
+      // block 1 character 1
+
       if (!values.block1Character1) {
         setDefaultValue(
           'block1Character1',
@@ -195,7 +218,19 @@ const UpdateStripe = ({ id, modalHandler, data }) => {
               )
             : ''
         );
+
+        setDefaultValue(
+          'block1BubbleType1',
+         'speak'
+        );
+        setDefaultValue(
+          'block1BubblePosition1',
+          blocks[0]?.characters[0]?.character
+            ? blocks[0]?.characters[0]?.character?.bubblePosition
+            : ''
+        );
       }
+      // block 1 character 2
       if (!values.block1Character2) {
         setDefaultValue(
           'block1Character2',
@@ -205,7 +240,21 @@ const UpdateStripe = ({ id, modalHandler, data }) => {
               )
             : ''
         );
+        setDefaultValue(
+          'block1BubbleType2',
+          blocks[0]?.characters[1]?.character
+            ? blocks[0]?.characters[1]?.character?.bubbleType
+            : ''
+        );
+        setDefaultValue(
+          'block1BubblePosition2',
+          blocks[0]?.characters[1]?.character
+            ? blocks[0]?.characters[1]?.character?.bubblePosition
+            : ''
+        );
       }
+
+      // block 2 character 1
       if (!values.block2Character1) {
         setDefaultValue(
           'block2Character1',
@@ -215,7 +264,20 @@ const UpdateStripe = ({ id, modalHandler, data }) => {
               )
             : ''
         );
+        setDefaultValue(
+          'block2BubbleType1',
+          blocks[1]?.characters[0]?.character
+            ? blocks[1]?.characters[0]?.character?.bubbleType
+            : ''
+        );
+        setDefaultValue(
+          'block2BubblePosition1',
+          blocks[1]?.characters[0]?.character
+            ? blocks[1]?.characters[0]?.character?.bubblePosition
+            : ''
+        );
       }
+      // block 2 character 2
       if (!values.block2Character2) {
         setDefaultValue(
           'block2Character2',
@@ -225,28 +287,66 @@ const UpdateStripe = ({ id, modalHandler, data }) => {
               )
             : ''
         );
+        setDefaultValue(
+          'block2BubbleType2',
+          blocks[1]?.characters[1]?.character
+            ? blocks[1]?.characters[1]?.character?.bubbleType
+            : ''
+        );
+        setDefaultValue(
+          'block2BubblePosition2',
+          blocks[1]?.characters[1]?.character
+            ? blocks[1]?.characters[1]?.character?.bubblePosition
+            : ''
+        );
       }
 
-    if(!values.block3Character1){
-      setDefaultValue(
-        'block3Character1',
-        blocks[1]?.characters[0]?.character?._id
-          ? characters?.find(
-              (ch) => ch._id === blocks[1]?.characters[0]?.character?._id
-            )
-          : ''
-      );
-    }
-     if(!values.block3Character2){
-      setDefaultValue(
-        'block3Character2',
-        blocks[2]?.characters[1]?.character?._id
-          ? characters?.find(
-              (ch) => ch._id === blocks[2]?.characters[1]?.character?._id
-            )
-          : ''
-      );
-     }
+      // block 3 character 1
+      if (!values.block3Character1) {
+        setDefaultValue(
+          'block3Character1',
+          blocks[2]?.characters[0]?.character?._id
+            ? characters?.find(
+                (ch) => ch._id === blocks[1]?.characters[0]?.character?._id
+              )
+            : ''
+        );
+        setDefaultValue(
+          'block3BubbleType1',
+          blocks[2]?.characters[0]?.character
+            ? blocks[2]?.characters[0]?.character?.bubbleType
+            : ''
+        );
+        setDefaultValue(
+          'block3BubblePosition1',
+          blocks[2]?.characters[0]?.character
+            ? blocks[2]?.characters[0]?.character?.bubblePosition
+            : ''
+        );
+      }
+      // block 3 character 2
+      if (!values.block3Character2) {
+        setDefaultValue(
+          'block3Character2',
+          blocks[2]?.characters[1]?.character?._id
+            ? characters?.find(
+                (ch) => ch._id === blocks[2]?.characters[1]?.character?._id
+              )
+            : ''
+        );
+        setDefaultValue(
+          'block3BubbleType2',
+          blocks[2]?.characters[1]?.character
+            ? blocks[2]?.characters[1]?.character?.bubbleType
+            : ''
+        );
+        setDefaultValue(
+          'block3BubblePosition2',
+          blocks[2]?.characters[1]?.character
+            ? blocks[2]?.characters[1]?.character?.bubblePosition
+            : ''
+        );
+      }
     }
 
     if (isSuccess) {
@@ -263,12 +363,13 @@ const UpdateStripe = ({ id, modalHandler, data }) => {
     }
   }, [isSuccess, isError, stepPosition, characters]);
 
-
+  // get current step
   const getStep = () => {
     switch (stepPosition) {
       case 1:
         return (
           <StepOne
+            position={stepPosition}
             values={values}
             handleChange={handleChange}
             setFieldValue={setFieldValue}
@@ -279,6 +380,7 @@ const UpdateStripe = ({ id, modalHandler, data }) => {
       case 2:
         return (
           <StepTwo
+            position={stepPosition}
             values={values}
             handleChange={handleChange}
             setFieldValue={setFieldValue}
@@ -289,6 +391,7 @@ const UpdateStripe = ({ id, modalHandler, data }) => {
       case 3:
         return (
           <StepThree
+            position={stepPosition}
             values={values}
             handleChange={handleChange}
             setFieldValue={setFieldValue}
@@ -311,12 +414,15 @@ const UpdateStripe = ({ id, modalHandler, data }) => {
     }
   };
 
+  console.log(values)
+
   return (
     <div class='card'>
       <div className='p-5'>
         {/* generate strip preview */}
         <h2 className='text-left text-xl text-black'>Preview Stripe</h2>
         <div className='px-8 py-6 grid grid-cols-3 gap-10'>
+          {/* block 1 */}
           {1 <= values.blockType && (
             <StripePreview
               values={{
@@ -328,6 +434,7 @@ const UpdateStripe = ({ id, modalHandler, data }) => {
               }}
             />
           )}
+          {/* block 2 */}
           {2 <= values.blockType && (
             <StripePreview
               values={{
@@ -339,6 +446,7 @@ const UpdateStripe = ({ id, modalHandler, data }) => {
               }}
             />
           )}
+          {/* block 3 */}
           {3 <= values.blockType && (
             <StripePreview
               values={{

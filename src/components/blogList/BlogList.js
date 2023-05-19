@@ -10,8 +10,6 @@ import { useGetStripesQuery } from '../../features/stripes/stripesApi'
 const BlogList = () => {
   const { search } = useSelector((state) => state.blog)
   const { data: blogs, isLoading, isError } = useGetBlogsQuery()
-  const {data:stripes} = useGetStripesQuery()
-  console.log({stripes})
 
   const regex = new RegExp(search, 'i')
   const filtered = search

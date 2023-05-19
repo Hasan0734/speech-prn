@@ -87,14 +87,14 @@ const StripeListItem = ({ stripe }) => {
         </Modal>
       )}
 
-      <div class='card relative bg-slate-100 overflow-hidden'>
-        <div className='grid grid-cols-3 pt-4'>
+      <div class='card relative bg-slate-100 overflow-hidden '>
+        <div className='flex pt-8 scale-75'>
           {blocks?.map((block) => (
             <>
               {blocks.length === 1 ? (
                 <>
                   <div
-                    className={`order-2 relative border-4 border-black h-[150px] w-full p-3 scale-90`}
+                    className={`order-2 relative border-4 border-black h-[150px] w-full p-3 scale-80`}
                   >
                     <div className='relative'>
                       <div

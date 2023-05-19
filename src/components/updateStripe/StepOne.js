@@ -5,14 +5,13 @@ import CharacterBubble from './CharacterBubble';
 import TextArea from '../inputs/TextArea';
 import InputText from './../inputs/InputText';
 
-
 const StepOne = ({
   values,
   setFieldValue,
   handleChange,
   errors,
   characters,
-  position
+  position,
 }) => {
   return (
     <>
@@ -20,7 +19,7 @@ const StepOne = ({
         className='space-y-4 max-h-[350px] 2xl:max-h-full overflow-y-scroll
            2xl:overflow-auto sm:px-5 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300'
       >
-      <InputText
+        <InputText
           value={values.title}
           error={errors.title}
           label='Title'
@@ -30,7 +29,7 @@ const StepOne = ({
         />
 
         <div className='flex items-start gap-x-4'>
-        <SelectOption
+          <SelectOption
             handleChange={setFieldValue}
             options={[
               { label: '1 Block', value: 1 },
@@ -60,8 +59,6 @@ const StepOne = ({
           />
         </div>
 
-     
-
         <div className='grid grid-cols-2 gap-6'>
           {/* character 1 */}
           <div>
@@ -70,7 +67,6 @@ const StepOne = ({
               values={values}
               handleChange={setFieldValue}
               options={characters}
-       
               value={values.block1Character1}
               placeholder={'Select Character'}
               // error={formik.errors.block1Character1}
@@ -87,7 +83,7 @@ const StepOne = ({
               value={values.block1Emotion1}
               placeholder={'Select Emotion'}
               // error={formik.errors.block1Emotion1}
-              
+
               name={'block1Emotion1'}
             />
           </div>
@@ -117,7 +113,6 @@ const StepOne = ({
               // error={formik.errors.blockType}
               disable={values.character2character ? false : true}
               name={'block1Emotion2'}
-              
             />
           </div>
         </div>
@@ -125,23 +120,30 @@ const StepOne = ({
         <div>
           <CharacterBubble
             toggleField={{
-              speck: 'block1Speck1',
-              thought: 'block1Thought1',
-              top: 'block1Top1',
-              bottom: 'block1Bottom1',
+              speak: 'block1BubbleType1',
+              thought: 'block1BubbleType1',
+              top: 'block1BubblePosition1',
+              bottom: 'block1BubblePosition1',
+            }}
+            bubbleValue={{
+              type: values.block1BubbleType1,
+              position: values.block1BubblePosition1,
             }}
             handleChange={setFieldValue}
             characterBubble={'block1Bubble1'}
             title={'Character 1 Bubble'}
-            
             values={values}
           />
           <CharacterBubble
             toggleField={{
-              speck: 'block1Speck2',
-              thought: 'block1Thought2',
-              top: 'block1Top2',
-              bottom: 'block1Bottom',
+              speak: 'block1BubbleType2',
+              thought: 'block1BubbleType2',
+              top: 'block1BubblePosition2',
+              bottom: 'block1BubblePosition2',
+            }}
+            bubbleValue={{
+              type: values.block1BubbleType2,
+              position: values.block1BubblePosition2,
             }}
             handleChange={setFieldValue}
             characterBubble={'block1Bubble2'}

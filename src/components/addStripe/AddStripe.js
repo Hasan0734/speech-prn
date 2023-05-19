@@ -44,36 +44,29 @@ const AddStripe = ({ modalHandler }) => {
       block2Text2: '',
       block3Text1: '',
       block3Text2: '',
-      block1Speck1: '',
-      block1Speck2: '',
-      block2Speck1: '',
-      block2Speck2: '',
-      block3Speck1: '',
-      block3Speck2: '',
-      block1Thought1: '',
-      block1Thought2: '',
-      block2Thought1: '',
-      block2Thought2: '',
-      block3Thought1: '',
-      block3Thought2: '',
-      block1Top1: '',
-      block1Top2: '',
-      block2Top1: '',
-      block2Top2: '',
-      block3Top1: '',
-      block3Top2: '',
-      block1Bottom1: '',
-      block1Bottom2: '',
-      block2Bottom1: '',
-      block2Bottom2: '',
-      block3Bottom1: '',
-      block3Bottom2: '',
+      block1BubbleType1: 'speak',
+      block1BubbleType2: 'speak',  
+      block2BubbleType1: 'speak',
+      block2BubbleType2: 'speak',
+      block3BubbleType1: 'speak',
+      block3BubbleType2: 'speak',
+      block1BubblePosition1: 'top',
+      block1BubblePosition2: 'top',
+      block2BubblePosition1: 'top',
+      block2BubblePosition2: 'top',
+      block3BubblePosition1: 'top',
+      block3BubblePosition2: 'top',
     },
     // validationSchema: createBlogSchema,
+
     onSubmit: async (values, { resetForm }) => {
       const createCharacter = (
         character1ID,
         dialogue1,
+        bubbleType1,
+        bubbleType2,
+        bubblePosition1,
+        bubblePosition2,
         dialogue2,
         character2ID
       ) => {
@@ -81,8 +74,8 @@ const AddStripe = ({ modalHandler }) => {
         if (character1ID) {
           totalCharacter.push({
             character: character1ID,
-            bubbleType: 'speak',
-            bubblePosition: 'top',
+            bubbleType: bubbleType1,
+            bubblePosition: bubblePosition1,
             dialogue: dialogue1,
           });
         }
@@ -90,8 +83,8 @@ const AddStripe = ({ modalHandler }) => {
         if (character2ID) {
           totalCharacter.push({
             character: character2ID,
-            bubbleType: 'speak',
-            bubblePosition: 'top',
+            bubbleType: bubbleType2,
+            bubblePosition: bubblePosition2,
             dialogue: dialogue2,
           });
         }
@@ -106,12 +99,20 @@ const AddStripe = ({ modalHandler }) => {
           characterCount: createCharacter(
             values.block1Character1?._id,
             values.block1Text1,
+            values.block1BubbleType1,
+            values.block1BubbleType2,
+            values.block1BubblePosition1,
+            values.block1BubblePosition2,
             values.block1Text2,
             values.block1Character2?._id
           )?.length,
           characters: createCharacter(
             values.block1Character1?._id,
             values.block1Text1,
+            values.block1BubbleType1,
+            values.block1BubbleType2,
+            values.block1BubblePosition1,
+            values.block1BubblePosition2,
             values.block1Text2,
             values.block1Character2?._id
           ),
@@ -125,12 +126,20 @@ const AddStripe = ({ modalHandler }) => {
           characterCount: createCharacter(
             values.block2Character1?._id,
             values.block2Text1,
+            values.block2BubbleType1,
+            values.block2BubbleType2,
+            values.block2BubblePosition1,
+            values.block2BubblePosition2,
             values.block2Text2,
             values.block2Character2?._id
           )?.length,
           characters: createCharacter(
             values.block2Character1?._id,
             values.block2Text1,
+            values.block2BubbleType1,
+            values.block2BubbleType2,
+            values.block2BubblePosition1,
+            values.block2BubblePosition2,
             values.block2Text2,
             values.block2Character2?._id
           ),
@@ -143,20 +152,26 @@ const AddStripe = ({ modalHandler }) => {
           characterCount: createCharacter(
             values.block3Character1?._id,
             values.block3Text1,
+            values.block3BubbleType1,
+            values.block3BubbleType2,
+            values.block3BubblePosition1,
+            values.block3BubblePosition2,
             values.block3Text2,
             values.block3Character2?._id
           )?.length,
           characters: createCharacter(
             values.block3Character1?._id,
             values.block3Text1,
+            values.block3BubbleType1,
+            values.block3BubbleType2,
+            values.block3BubblePosition1,
+            values.block3BubblePosition2,
             values.block3Text2,
             values.block3Character2?._id
           ),
         };
         newBlocks.push(blc);
       }
-
-
       addStripe({
         title: values.title,
         blockCount: values.blockType,
@@ -166,7 +181,6 @@ const AddStripe = ({ modalHandler }) => {
   });
 
   const { handleChange, handleSubmit, errors, values, setFieldValue } = formik;
-
 
   React.useEffect(() => {
     if (characters?.length > 0) {
@@ -238,14 +252,14 @@ const AddStripe = ({ modalHandler }) => {
     }
   };
 
+  console.log(values)
+
   return (
     <div class='card'>
       <div className='p-5'>
         {/* generate strip preview */}
         <h2 className='text-left text-xl text-black'>Preview Stripe</h2>
         <div className='px-8 py-6 grid grid-cols-3 gap-10'>
-
-
           {1 <= values.blockType && (
             <StripePreview
               values={{

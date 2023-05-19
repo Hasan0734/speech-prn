@@ -11,11 +11,10 @@ const CharacterOptions = ({
   name,
   handleChange,
   placeholder,
-  character1,
-  character2,
   position,
   ...attributes
 }) => {
+
   const onChange = (e) => {
     const find = options.find((cha) => cha._id === e.target.value);
     handleChange(name, find, true);
@@ -46,14 +45,6 @@ const CharacterOptions = ({
         }
     }
   };
-
-  // React.useEffect(() => {
-  //   if(value) {
-  //     const find = options.find(op => op._id === value);
-  //     handleChange(name, find, true);
-  //   }
-  // }, [])
-  console.log(value)
 
 
   return (

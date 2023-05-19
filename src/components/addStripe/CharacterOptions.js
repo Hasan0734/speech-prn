@@ -11,9 +11,6 @@ const CharacterOptions = ({
   name,
   handleChange,
   placeholder,
-  character1,
-  character2,
-  formValue = null,
   position,
   ...attributes
 }) => {
@@ -32,7 +29,6 @@ const CharacterOptions = ({
           return values.block1Character1?._id === _id;
         }
       case 2:
-        console.log('Hello world')
         if (name === 'block2Character1') {
           return values.block2Character2?._id === _id;
         }

@@ -5,6 +5,7 @@ const initialState = {
 }
 
 const blogSlice = createSlice({
+
   name: 'blogs',
   initialState,
   reducers: {
@@ -12,6 +13,7 @@ const blogSlice = createSlice({
       state.search = action.payload
     },
   },
+  
 })
 
 export const { makeSearch } = blogSlice.actions
