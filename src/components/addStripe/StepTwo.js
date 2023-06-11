@@ -3,6 +3,7 @@ import SelectOption from '../ui/SelectOption';
 import CharacterOptions from './CharacterOptions';
 import CharacterBubble from './CharacterBubble';
 import TextArea from '../inputs/TextArea';
+import ToggleSwitch from '../ui/ToggleSwitch';
 
 const StepTwo = ({
   values,
@@ -10,16 +11,21 @@ const StepTwo = ({
   handleChange,
   errors,
   characters,
-  position
+  position,
 }) => {
+
+  const handleFlip = (e, name) => {
+    setFieldValue(name, e.target.checked, true);
+  };
+
   return (
+
+    
     <>
       <div
         className='space-y-4 max-h-[350px] 2xl:max-h-full overflow-y-scroll
            2xl:overflow-auto sm:px-5 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300'
       >
-     
-
         <div className='flex items-start gap-x-4'>
           <SelectOption
             handleChange={setFieldValue}
@@ -37,29 +43,34 @@ const StepTwo = ({
           />
         </div>
 
-        {/* <BlockInfo
-          fieldName={fieldname}
-          values={values}
-          handleChange={handleChange}
-          setFieldValue={setFieldValue}
-          errors={errors}
-          characters={characters}
-        /> */}
 
         <div className='grid grid-cols-2 gap-6'>
           {/* character 1 */}
           <div>
             <h4>Character 1</h4>
-            <CharacterOptions
-              values={values}
-              handleChange={setFieldValue}
-              options={characters}
-              value={values.block2Character1}
-              placeholder={'Select Character'}
-              // error={formik.errors.block2Character1}
-              name={'block2Character1'}
-              position={position}
-            />
+            <div className='flex items-center space-x-2'>
+              <CharacterOptions
+                values={values}
+                handleChange={setFieldValue}
+                options={characters}
+                value={values.block2Character1}
+                placeholder={'Select Character'}
+                // error={formik.errors.block2Character1}
+                name={'block2Character1'}
+                position={position}
+              />
+              <div className='flex items-center space-x-2'>
+                <span>Flip</span>
+
+                <ToggleSwitch
+                  checked={values.block2Character1Flip}
+                  handleChange={handleFlip}
+                  name={'block2Character1Flip'}
+                  disabled={values.block2Character1 ? false : true}
+                />
+              </div>
+            </div>
+
             <SelectOption
               handleChange={setFieldValue}
               options={[
@@ -77,17 +88,31 @@ const StepTwo = ({
           <div>
             <h4>Character 2</h4>
 
-            <CharacterOptions
-              values={values}
-              handleChange={setFieldValue}
-              options={characters}
-              value={values.block2Character2}
-              placeholder={'Select Character'}
-              // error={formik.errors.blockType}
-              name={'block2Character2'}
-              position={position}
-            />
+            <div className='flex justify-between items-center space-x-7'>
+              <CharacterOptions
+                values={values}
+                handleChange={setFieldValue}
+                options={characters}
+                value={values.block2Character2}
+                placeholder={'Select Character'}
+                // error={formik.errors.blockType}
+                name={'block2Character2'}
+                position={position}
+              />
+              <div className='flex items-center space-x-2'>
+                <span>Flip</span>
+
+                <ToggleSwitch
+                  checked={values.block2Character2Flip}
+                  handleChange={handleFlip}
+                  name={'block2Character2Flip'}
+                  disabled={values.block2Character2 ? false : true}
+                />
+              </div>
+            </div>
+
             <SelectOption
+              className='mt-4'
               handleChange={setFieldValue}
               options={[
                 { label: 'Emotion 1', value: 'Emotion 1' },

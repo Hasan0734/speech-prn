@@ -28,7 +28,7 @@ const Modal = ({ open, modalHandler, children, maxWidth='max-w-lg' }) => {
               leaveFrom='opacity-100'
               leaveTo='opacity-0'
             >
-              <Dialog.Overlay className='fixed inset-0 backdrop-filter backdrop-blur-lg ' />
+              <Dialog.Overlay className='fixed inset-0 backdrop-filter backdrop-blur-lg bg-black bg-opacity-25' />
             </Transition.Child>
             <span
               className='inline-block h-screen align-middle'

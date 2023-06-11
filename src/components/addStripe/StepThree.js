@@ -3,6 +3,7 @@ import SelectOption from '../ui/SelectOption';
 import CharacterOptions from './CharacterOptions';
 import CharacterBubble from './CharacterBubble';
 import TextArea from '../inputs/TextArea';
+import ToggleSwitch from '../ui/ToggleSwitch';
 
 const StepThree = ({
   values,
@@ -10,16 +11,20 @@ const StepThree = ({
   handleChange,
   errors,
   characters,
-  position
+  position,
 }) => {
+
+  const handleFlip = (e, name) => {
+    setFieldValue(name, e.target.checked, true);
+  };
+
+
   return (
     <>
       <div
         className='space-y-4 max-h-[350px] 2xl:max-h-full overflow-y-scroll
            2xl:overflow-auto sm:px-5 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300'
       >
-     
-
         <div className='flex items-start gap-x-4'>
           <SelectOption
             handleChange={setFieldValue}
@@ -37,22 +42,33 @@ const StepThree = ({
           />
         </div>
 
-       
-
         <div className='grid grid-cols-2 gap-6'>
           {/* character 1 */}
           <div>
             <h4>Character 1</h4>
-            <CharacterOptions
-              values={values}
-              handleChange={setFieldValue}
-              options={characters}
-              value={values.block3Character1}
-              placeholder={'Select Character'}
-              // error={formik.errors.block3Character1}
-              name={'block3Character1'}
-              position={position}
-            />
+            <div className='flex justify-between items-center space-x-7'>
+              <CharacterOptions
+                values={values}
+                handleChange={setFieldValue}
+                options={characters}
+                value={values.block3Character1}
+                placeholder={'Select Character'}
+                // error={formik.errors.block3Character1}
+                name={'block3Character1'}
+                position={position}
+              />
+              <div className='flex items-center space-x-2'>
+                <span>Flip</span>
+
+                <ToggleSwitch
+                  checked={values.block3Character1Flip}
+                  handleChange={handleFlip}
+                  name={'block3Character1Flip'}
+                  disabled={values.block3Character1 ? false : true}
+                />
+              </div>
+            </div>
+
             <SelectOption
               handleChange={setFieldValue}
               options={[
@@ -69,6 +85,7 @@ const StepThree = ({
           {/* character 2 */}
           <div>
             <h4>Character 2</h4>
+            <div className='flex justify-between items-center space-x-7'>
 
             <CharacterOptions
               values={values}
@@ -80,6 +97,18 @@ const StepThree = ({
               name={'block3Character2'}
               position={position}
             />
+              <div className='flex items-center space-x-2'>
+                <span>Flip</span>
+
+                <ToggleSwitch
+                  checked={values.block3Character2Flip}
+                  handleChange={handleFlip}
+                  name={'block3Character2Flip'}
+                  disabled={values.block3Character2 ? false : true}
+                />
+              </div>
+            </div>
+       
             <SelectOption
               handleChange={setFieldValue}
               options={[

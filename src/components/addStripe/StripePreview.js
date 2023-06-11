@@ -1,42 +1,51 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-const StripePreview = ({ values }) => {
+const StripePreview = ({ values, position, setStepPosition, activePosition }) => {
+
   const {
     character1,
     character2,
     character1Text,
     character2Text,
-    blockStyle
-   
+    blockStyle,
+    character1Flip,
+    character2Flip,
   } = values;
 
   const character2Ref = useRef();
 
+  const handleSelect = () => {
+    setStepPosition(position);
+  };
+
   return (
     <>
-      <div className=''>
-        <div className='relative'>
+     
+        <div onClick={handleSelect}
+         className={`relative transition-all duration-300 ${activePosition === position ? 'scale-105' : 'scale-100'}`}>
           {/* single block */}
           {!character2 && (
             <div
               className={`relative ${
                 blockStyle === 'noblock' ? 'border-0' : 'border-4'
-              } border-black ${
-                blockStyle === 'short' ? 'h-[220px]' : 'h-[300px]'
+              } ${activePosition === position ? "border-green-500" : 'border-black'} ${
+                blockStyle === 'short' ? 'h-[220px]' : 'h-[260px]'
               } w-full p-4`}
             >
               <p className='font-bold text-left'>{character1Text}</p>
-              <img
+             { character1 && <img
                 className={`${
                   blockStyle === 'long'
-                    ? 'max-w-[120px]'
+                    ? 'max-w-[110px]'
                     : blockStyle === 'short'
-                    ? 'max-w-[120px]'
-                    : 'max-w-[120px]'
+                    ? 'max-w-[100px]'
+                    : 'max-w-[100px]'
+                } ${
+                  character1Flip ? 'scale-x-[-1]' : 'scale-x-[1]'
                 } absolute -left-6 -bottom-4`}
                 src={character1.link}
-                alt=''
-              />
+                alt='character 1'
+              />}
             </div>
           )}
 
@@ -44,11 +53,11 @@ const StripePreview = ({ values }) => {
             <div
               className={`relative ${
                 blockStyle === 'noblock' ? 'border-0' : 'border-4'
-              } border-black ${
-                blockStyle === 'short' ? 'h-[220px]' : 'h-[300px]'
+              } ${activePosition === position ? "border-green-500" : 'border-black'} ${
+                blockStyle === 'short' ? 'h-[220px]' : 'h-[260px]'
               } w-fulll p-4 flex items-center`}
             >
-              <div className='px-3 flex justify-between items-center w-full'>
+              <div className='px-3 mt-8 flex justify-between items-end w-full'>
                 <div className='relative object-cover'>
                   {character1Text && (
                     <div
@@ -69,13 +78,15 @@ const StripePreview = ({ values }) => {
                   <img
                     className={`${
                       blockStyle === 'long'
-                        ? 'w-[105px]'
+                        ? 'w-[105px] h-[140px]'
                         : blockStyle === 'short'
-                        ? 'w-[105px]'
-                        : 'w-[105px]'
-                    } h-[140px]`}
+                        ? 'w-[85px] h-[110px]'
+                        : 'w-[85px]'
+                    } ${
+                      character1Flip ? 'scale-x-[-1]' : 'scale-x-100'
+                    }`}
                     src={character1?.link}
-                    alt=''
+                    alt='character 1'
                   />
                 </div>
 
@@ -93,22 +104,25 @@ const StripePreview = ({ values }) => {
                     </div>
                   )}
                   <img
-                    className={`${
-                      blockStyle === 'long'
-                        ? 'w-[105px]'
-                        : blockStyle === 'short'
-                        ? 'w-[105px]'
-                        : 'w-[105px]'
-                    } h-[140px]`}
+                  className={`${
+                    blockStyle === 'long'
+                      ? 'w-[105px] h-[140px]'
+                      : blockStyle === 'short'
+                      ? 'w-[85px] h-[110px]'
+                      : 'w-[85px]'
+                  } ${
+                    character2Flip ? 'scale-x-[-1]' : 'scale-x-100'
+                  }`}
                     src={character2?.link}
-                    alt=''
+                    alt='character 2'
                   />
                 </div>
               </div>
             </div>
           )}
+
         </div>
-      </div>
+      
     </>
   );
 };

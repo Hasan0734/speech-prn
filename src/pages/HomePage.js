@@ -5,9 +5,11 @@ import { useLogoutQuery } from '../features/auth/authApi'
 import UpdateProfile from './../components/updateProfile/UpdateProfile'
 import UpdatePassword from './../components/updatePassword/UpdatePassword'
 import LinkedDeivces from './../components/linkedDevices/LinkedDeivces'
+
 import BlogRead from '../components/blogRead/BlogRead'
 import StripeList from '../components/stripeList/StripeList'
 import AddStripe from '../components/addStripe/AddStripe'
+import CharacterList from '../components/characterList/characterList'
 
 const HomePage = () => {
   const search = useLocation().search
@@ -36,6 +38,8 @@ const HomePage = () => {
         return <AddStripe />
       case 'blog_read':
         return <BlogRead />
+      case 'character_list':
+        return <CharacterList />
       default:
         return <StripeList />
     }

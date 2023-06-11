@@ -21,11 +21,17 @@ const AddStripe = ({ modalHandler }) => {
       block2Style: 'long',
       block3Style: 'long',
       block1Character1: '',
+      block1Character1Flip: false,
       block1Character2: '',
+      block1Character2Flip: false,
       block2Character1: '',
+      block2Character1Flip: false,
       block2Character2: '',
+      block2Character2Flip: false,
       block3Character1: '',
+      block3Character1Flip: false,
       block3Character2: '',
+      block3Character2Flip: false,
       block1Emotion1: '',
       block1Emotion2: '',
       block2Emotion1: '',
@@ -45,7 +51,7 @@ const AddStripe = ({ modalHandler }) => {
       block3Text1: '',
       block3Text2: '',
       block1BubbleType1: 'speak',
-      block1BubbleType2: 'speak',  
+      block1BubbleType2: 'speak',
       block2BubbleType1: 'speak',
       block2BubbleType2: 'speak',
       block3BubbleType1: 'speak',
@@ -252,50 +258,64 @@ const AddStripe = ({ modalHandler }) => {
     }
   };
 
-  console.log(values)
-
   return (
     <div class='card'>
       <div className='p-5'>
         {/* generate strip preview */}
         <h2 className='text-left text-xl text-black'>Preview Stripe</h2>
-        <div className='px-8 py-6 grid grid-cols-3 gap-10'>
+        <div className='px-12 pt-20 pb-6 grid grid-cols-3 gap-10'>
           {1 <= values.blockType && (
             <StripePreview
+              activePosition={stepPosition}
+              position={1}
+              setStepPosition={setStepPosition}
               values={{
                 character1: values.block1Character1,
                 character2: values.block1Character2,
                 character1Text: values.block1Text1,
                 character2Text: values.block1Text2,
                 blockStyle: values.block1Style,
+                character1Flip: values.block1Character1Flip,
+                character2Flip: values.block1Character2Flip,
               }}
             />
           )}
           {2 <= values.blockType && (
             <StripePreview
+              activePosition={stepPosition}
+              position={2}
+              setStepPosition={setStepPosition}
               values={{
                 character1: values.block2Character1,
                 character2: values.block2Character2,
                 character1Text: values.block2Text1,
                 character2Text: values.block2Text2,
                 blockStyle: values.block2Style,
+                character1Flip: values.block2Character1Flip,
+                character2Flip: values.block2Character2Flip,
               }}
             />
           )}
+
           {3 <= values.blockType && (
             <StripePreview
+              activePosition={stepPosition}
+              position={3}
+              setStepPosition={setStepPosition}
               values={{
                 character1: values.block3Character1,
                 character2: values.block3Character2,
                 character1Text: values.block3Text1,
                 character2Text: values.block3Text2,
                 blockStyle: values.block3Style,
+                character1Flip: values.block3Character1Flip,
+                character2Flip: values.block3Character2Flip,
               }}
             />
           )}
         </div>
 
-        <div className='mt-10'>
+        <div className='mt-6'>
           <div class='border-b border-slate-200 p-4 dark:border-navy-500 sm:px-5'>
             <div class='flex items-center space-x-2'>
               <div class='flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 p-1 text-primary dark:bg-accent-light/10 dark:text-accent-light'>
@@ -312,7 +332,7 @@ const AddStripe = ({ modalHandler }) => {
 
             {/* submit */}
             <div class='flex justify-center space-x-6 p-4 border-t border-slate-200'>
-              {Number(values.blockType) > 1 &&
+              {/* {Number(values.blockType) > 1 &&
                 stepPosition < Number(values.blockType) && (
                   <>
                     {Number(values.blockType) === 1 ? (
@@ -362,14 +382,15 @@ const AddStripe = ({ modalHandler }) => {
                       <span>Prev</span>
                     </button>
                   )}
-                  <button
-                    type='submit'
-                    class='btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90'
-                  >
-                    <span>Submit</span>
-                  </button>
+               
                 </>
-              )}
+              )} */}
+              {stepPosition === Number(values.blockType) && <button
+                type='submit'
+                class='btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90'
+              >
+                <span>Submit</span>
+              </button>}
             </div>
           </form>
         </div>

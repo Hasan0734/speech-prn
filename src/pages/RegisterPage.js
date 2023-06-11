@@ -1,39 +1,58 @@
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import LoginHeader from '../components/login/LoginHeader'
-import LoginLayout from '../components/login/LoginLayout'
-import { SvgLockIcon, SvgMailIcon, SvgUserIcon } from '../utils/svgIcons'
-import { Formik } from 'formik'
-import InputText from '../components/inputs/InputText'
-import InputPassword from '../components/inputs/InputPassword'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import LoginHeader from '../components/login/LoginHeader';
+import LoginLayout from '../components/login/LoginLayout';
+import { SvgLockIcon, SvgMailIcon, SvgUserIcon } from '../utils/svgIcons';
+import { Formik } from 'formik';
+import InputText from '../components/inputs/InputText';
+import InputPassword from '../components/inputs/InputPassword';
 
-import { createUserSchema } from '../schema/userSchema'
-import { useRegisterMutation } from '../features/auth/authApi'
-import { toast } from 'react-hot-toast'
-import { SvgPhoneIcon } from './../utils/svgIcons'
+import { createUserSchema } from '../schema/userSchema';
+import { useRegisterMutation } from '../features/auth/authApi';
+import { toast } from 'react-hot-toast';
+import { SvgPhoneIcon } from './../utils/svgIcons';
+import Checkbox from '../components/ui/Checkbox';
+import Modal from '../components/ui/Modal';
+import TermsAndConditions from '../components/termsAndConditions/TermsAndConditions';
 
 const RegisterPage = () => {
-  document.title = 'Welcome Register'
-  const navigate = useNavigate()
-  const [register, { data, isLoading, error }] = useRegisterMutation()
+  document.title = 'Welcome Register';
+  const navigate = useNavigate();
+  const [register, { data, isLoading, error }] = useRegisterMutation();
+  const [openTerms, setOpenTerms] = useState(false);
 
   function registerHandler(values, { resetForm }) {
-    register(values)
-    resetForm()
+    register(values);
+    resetForm();
   }
 
   React.useEffect(() => {
     if (data?.data?._id) {
-      toast.success('Register Success!')
-      navigate('/')
+      toast.success('Register Success!');
+      navigate('/');
     }
     if (error?.data) {
-      toast.error(error.data?.message || error?.error || 'Registration Failed!')
+      toast.error(
+        error.data?.message || error?.error || 'Registration Failed!'
+      );
     }
-  }, [data, error, navigate])
+  }, [data, error, navigate]);
+
+  const modalCloser = () => {
+    setOpenTerms(false);
+  };
 
   return (
     <LoginLayout>
+      {openTerms && (
+        <Modal
+          open={openTerms}
+          modalHandler={modalCloser}
+          maxWidth={'max-w-5xl'}
+        >
+          <TermsAndConditions modalCloser={modalCloser} />
+        </Modal>
+      )}
       <Formik
         initialValues={{
           name: '',
@@ -75,7 +94,23 @@ const RegisterPage = () => {
               onChange={handleChange}
               required
             />
+            <div className='flex space-x-1 items-center mt-3'>
+              <Checkbox />
+              <span className='text-sm'>
+                Agree to
+                <span
+                  onClick={() => setOpenTerms(true)}
+                  className='text-blue-500  hover:underline cursor-pointer'
+                >
+                  {' '}
+                  Terms and Conditions
+                </span>
+                .
+              </span>
+            </div>
+
             {/* Remember Me | Forget Password */}
+
             <div className='mt-4 flex items-center justify-between space-x-2'>
               <p>Already Have an account?</p>
               <Link
@@ -85,6 +120,7 @@ const RegisterPage = () => {
                 Sign in!
               </Link>
             </div>
+
             {/* Submit Button */}
             <button
               type='submit'
@@ -96,7 +132,7 @@ const RegisterPage = () => {
         )}
       </Formik>
     </LoginLayout>
-  )
-}
+  );
+};
 
-export default RegisterPage
+export default RegisterPage;

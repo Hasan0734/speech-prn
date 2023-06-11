@@ -4,7 +4,7 @@ import CharacterOptions from './CharacterOptions';
 import CharacterBubble from './CharacterBubble';
 import TextArea from '../inputs/TextArea';
 import InputText from '../inputs/InputText';
-
+import ToggleSwitch from '../ui/ToggleSwitch';
 
 const StepOne = ({
   values,
@@ -12,16 +12,21 @@ const StepOne = ({
   handleChange,
   errors,
   characters,
-  position
+  position,
 }) => {
+
+  const handleFlip = (e, name) => {
+    setFieldValue(name, e.target.checked, true);
+  };
+
   return (
     <>
       <div
-      disabled
+        disabled
         className='space-y-4 max-h-[350px] 2xl:max-h-full overflow-y-scroll
            2xl:overflow-auto sm:px-5 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300'
       >
-      <InputText
+        <InputText
           value={values.title}
           error={errors.title}
           label='Title'
@@ -31,7 +36,7 @@ const StepOne = ({
         />
 
         <div className='flex items-start gap-x-4'>
-        <SelectOption
+          <SelectOption
             handleChange={setFieldValue}
             options={[
               { label: '1 Block', value: 1 },
@@ -61,23 +66,34 @@ const StepOne = ({
           />
         </div>
 
-     
-
         <div className='grid grid-cols-2 gap-6'>
           {/* character 1 */}
           <div>
             <h4>Character 1</h4>
-            <CharacterOptions
-              values={values}
-              handleChange={setFieldValue}
-              options={characters}
-              value={values.block1Character1}
-              placeholder={'Select Character'}
-              // error={formik.errors.block1Character1}
-              position={position}
-              name={'block1Character1'}
-            />
+            <div className='flex justify-between items-center space-x-7'>
+              <CharacterOptions
+                values={values}
+                handleChange={setFieldValue}
+                options={characters}
+                value={values.block1Character1}
+                placeholder={'Select Character'}
+                // error={formik.errors.block1Character1}
+                position={position}
+                name={'block1Character1'}
+              />
+              <div className='flex items-center space-x-2'>
+                <span>Flip</span>
+
+                <ToggleSwitch
+                  checked={values.block1Character1Flip}
+                  handleChange={handleFlip}
+                  name={'block1Character1Flip'}
+                  disabled={values.block1Character1 ? false : true}
+                />
+              </div>
+            </div>
             <SelectOption
+              className='mt-4'
               handleChange={setFieldValue}
               options={[
                 { label: 'Emotion 1', value: 'Emotion 1' },
@@ -87,25 +103,38 @@ const StepOne = ({
               value={values.block1Emotion1}
               placeholder={'Select Emotion'}
               // error={formik.errors.block1Emotion1}
-              
+
               name={'block1Emotion1'}
             />
           </div>
           {/* character 2 */}
           <div>
             <h4>Character 2</h4>
+            <div className='flex justify-between items-center space-x-7'>
+              <CharacterOptions
+                values={values}
+                handleChange={setFieldValue}
+                options={characters}
+                value={values.block1Character2}
+                placeholder={'Select Character'}
+                // error={formik.errors.blockType}
+                name={'block1Character2'}
+                position={position}
+              />
+              <div className='flex items-center space-x-2'>
+                <span>Flip</span>
 
-            <CharacterOptions
-              values={values}
-              handleChange={setFieldValue}
-              options={characters}
-              value={values.block1Character2}
-              placeholder={'Select Character'}
-              // error={formik.errors.blockType}
-              name={'block1Character2'}
-              position={position}
-            />
+                <ToggleSwitch
+                  checked={values.block1Character2Flip}
+                  handleChange={handleFlip}
+                  name={'block1Character2Flip'}
+                  disabled={values.block1Character2 ? false : true}
+                />
+              </div>
+            </div>
+
             <SelectOption
+              className='mt-4'
               handleChange={setFieldValue}
               options={[
                 { label: 'Emotion 1', value: 'Emotion 1' },
@@ -117,7 +146,6 @@ const StepOne = ({
               // error={formik.errors.blockType}
               disable={values.character2character ? false : true}
               name={'block1Emotion2'}
-              
             />
           </div>
         </div>

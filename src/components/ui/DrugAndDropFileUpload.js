@@ -19,6 +19,7 @@ const DrugAndDropFileUpload = ({ fileName, files, setFiles, maxFiles }) => {
       header={true}
       view='list'
       accept={drugAndDropConfig.accept}
+      onReset={() => setFiles(fileName, [])}
       onDrop={(acceptedFiles) => {
         // Check Error
         if (acceptedFiles[0]?.errors.length) {
@@ -31,7 +32,7 @@ const DrugAndDropFileUpload = ({ fileName, files, setFiles, maxFiles }) => {
         setFiles(fileName, [...files, ...filteredFiles])
       }}
     >
-      {files.map((file, index) => (
+   {files?.map((file, index) => (
         <span key={index}>
           <FileItem
             {...file}
@@ -45,9 +46,9 @@ const DrugAndDropFileUpload = ({ fileName, files, setFiles, maxFiles }) => {
             info
           />
         </span>
-      ))}
+      ))} 
 
-      {!files.length && <span>{drugAndDropConfig.title}</span>}
+      {/* {!files.length && <span>{drugAndDropConfig.title}</span>}  */}
     </Dropzone>
   )
 }

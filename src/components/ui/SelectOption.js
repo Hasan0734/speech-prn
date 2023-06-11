@@ -5,7 +5,7 @@ const SelectOption = ({
   title,
   value,
   error,
-  className = '',
+  className = 'mt-1.5',
   label,
   name,
   handleChange,
@@ -23,9 +23,9 @@ const SelectOption = ({
         {label && <span>{title}</span>}
         <select
           onChange={onChange}
-          class={`form-select mt-1.5 w-full rounded-lg border border-slate-300
+          class={`${className} form-select  w-full rounded-lg border border-slate-300
           bg-white px-3 py-2 hover:border-slate-400 focus:border-primary 
-          ${className}`}
+          `}
           defaultValue={value}
           {...attributes}
         >
